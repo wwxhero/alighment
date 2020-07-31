@@ -108,7 +108,7 @@ public class ObjMobile : MonoBehaviour {
 		{
 			T = m_rigids[m_iRT].forward * T;
 		}
-		m_iRT --;
+
 		Matrix4x4 l2w = T * transform.localToWorldMatrix;
 		Vector3 x = new Vector3(  l2w[0, 0]
 								, l2w[1, 0]
@@ -130,7 +130,7 @@ public class ObjMobile : MonoBehaviour {
 	public void Reset()
 	{
 		Matrix4x4 T = Matrix4x4.identity;
-		for (; m_iRT > -1; m_iRT --)
+		for (m_iRT --; m_iRT > -1; m_iRT --)
 		{
 			T = m_rigids[m_iRT].inverse * T;
 		}
@@ -151,5 +151,44 @@ public class ObjMobile : MonoBehaviour {
 		transform.up = y;
 		transform.forward = z;
 		transform.position = t;
+	}
+
+	public void LogOut()
+	{
+		Matrix4x4 T_i = Matrix4x4.identity;
+		int i = m_iRT - 1;
+		for (; i > -1; i --)
+		{
+			T_i = m_rigids[i].inverse * T_i;
+		}
+
+		Matrix4x4 l2w_i = T_i * transform.localToWorldMatrix;
+		PrintOut(ref l2w_i, 0);
+		int n_t = m_rigids.Count;
+		for (i = 0; i < n_t; i ++)
+		{
+			l2w_i = m_rigids[i].forward * l2w_i;
+			PrintOut(ref l2w_i, i + 1);
+		}
+	}
+
+	void PrintOut(ref Matrix4x4 l2w, int i_trans)
+	{
+		string log = name;
+		for (int i_suffix = 0; i_suffix < i_trans; i_suffix ++)
+			log += "'";
+		log += ":";
+		log += "\nMatrix:";
+		for (int i_r = 0; i_r < 4; i_r ++)
+		{
+			log += string.Format("\n\t{0,7:#.0000}\t{1,7:#.0000}\t{2,7:#.0000}\t{3,7:#.0000}"
+									, l2w[i_r, 0], l2w[i_r, 1], l2w[i_r, 2], l2w[i_r, 3]);
+
+		}
+		log += "\nDOFs:";
+		Vector3 euler = l2w.rotation.eulerAngles;
+		log += string.Format("\n\trotation: {0,7:#.0000}\t{1,7:#.0000}\t{2,7:#.0000}", euler.x, euler.y, euler.z);
+		log += string.Format("\n\ttranslation: {0,7:#.0000}\t{1,7:#.0000}\t{2,7:#.0000}", l2w[0, 3], l2w[1, 3], l2w[2, 3]);
+		Debug.Log(log);
 	}
 }

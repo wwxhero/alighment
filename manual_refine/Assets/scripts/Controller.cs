@@ -24,6 +24,6 @@ public class Controller : MonoBehaviour {
 
 	public void LogOut()
 	{
-		Debug.Log("Controller::LogOut");
+		m_thisObj.LogOut();
 	}
 }
