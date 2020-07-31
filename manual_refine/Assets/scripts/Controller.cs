@@ -5,13 +5,13 @@ using UnityEngine;
 public class Controller : MonoBehaviour {
 
 	protected ObjMobile m_thisObj;
-	
+
 	protected void Start () {
 		m_thisObj = GetComponent<ObjMobile>();
 	}
 
-	
-	
+
+
 	public void Apply()
 	{
 		m_thisObj.Apply();
@@ -19,7 +19,7 @@ public class Controller : MonoBehaviour {
 
 	public void Reset()
 	{
-		Debug.Log("Controller::Reset");
+		m_thisObj.Reset();
 	}
 
 	public void LogOut()

@@ -19,7 +19,7 @@ public class ControllerEdit : Editor
 			, new MTD_CONTROLLER(controller.LogOut)
 		};
 
-		m_methodsnames = new string [] 
+		m_methodsnames = new string []
 		{
 			  "Apply"
 			, "Reset"
@@ -30,7 +30,7 @@ public class ControllerEdit : Editor
 	public override void OnInspectorGUI()
 	{
 		base.OnInspectorGUI();
-				
+
 		GUILayout.BeginHorizontal();
 		for (int i_btn = 0; i_btn < m_methods.Length; i_btn ++)
 		{
@@ -43,6 +43,11 @@ public class ControllerEdit : Editor
 			}
 		}
 		GUILayout.EndHorizontal();
+	}
+
+	protected void OnInspectorGUI_Editor()
+	{
+		base.OnInspectorGUI(); //work around for C#
 	}
 };
 #endif

@@ -19,6 +19,7 @@ public class ControllerAutoEdit : ControllerEdit
 			base.OnInspectorGUI();
 		else
 		{
+			OnInspectorGUI_Editor();
 			GUILayout.BeginHorizontal();
 			if (GUILayout.Button("Register", GUILayout.Width(80)))
 			{
