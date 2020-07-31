@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BunnyBehavior : MonoBehaviour {
+public class ObjMobile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
