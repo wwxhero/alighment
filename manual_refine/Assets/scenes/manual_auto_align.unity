@@ -156,8 +156,7 @@ Prefab:
       propertyPath: m_Name
       value: bunny_B
       objectReference: {fileID: 0}
-    - target: {fileID: 114926409566404090, guid: f0883e3ecbe343d478f894c0c826cfe6,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: m_rgbVert.g
       value: 1
       objectReference: {fileID: 0}
@@ -195,6 +194,11 @@ Prefab:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: f0883e3ecbe343d478f894c0c826cfe6, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &533070843 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4218670549641636, guid: f0883e3ecbe343d478f894c0c826cfe6,
+    type: 2}
+  m_PrefabInternal: {fileID: 533070842}
 --- !u!1001 &739631173
 Prefab:
   m_ObjectHideFlags: 0
@@ -202,6 +206,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114389283146139944, guid: f0883e3ecbe343d478f894c0c826cfe6,
+        type: 2}
+      propertyPath: m_registrations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4218670549641636, guid: f0883e3ecbe343d478f894c0c826cfe6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.646
@@ -238,8 +247,7 @@ Prefab:
       propertyPath: m_Name
       value: bunny_C
       objectReference: {fileID: 0}
-    - target: {fileID: 114926409566404090, guid: f0883e3ecbe343d478f894c0c826cfe6,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: m_rgbVert.b
       value: 1
       objectReference: {fileID: 0}
@@ -256,9 +264,19 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -23.62
       objectReference: {fileID: 0}
+    - target: {fileID: 114389283146139944, guid: f0883e3ecbe343d478f894c0c826cfe6,
+        type: 2}
+      propertyPath: m_registrations.Array.data[0]
+      value: 
+      objectReference: {fileID: 739631174}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f0883e3ecbe343d478f894c0c826cfe6, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &739631174 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4218670549641636, guid: f0883e3ecbe343d478f894c0c826cfe6,
+    type: 2}
+  m_PrefabInternal: {fileID: 739631173}
 --- !u!1001 &1907528675
 Prefab:
   m_ObjectHideFlags: 0
@@ -266,6 +284,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114389283146139944, guid: f0883e3ecbe343d478f894c0c826cfe6,
+        type: 2}
+      propertyPath: m_registrations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4218670549641636, guid: f0883e3ecbe343d478f894c0c826cfe6, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -298,11 +321,24 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114926409566404090, guid: f0883e3ecbe343d478f894c0c826cfe6,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: m_rgbVert.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1462288832364426, guid: f0883e3ecbe343d478f894c0c826cfe6, type: 2}
+      propertyPath: m_Name
+      value: bunny_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 114389283146139944, guid: f0883e3ecbe343d478f894c0c826cfe6,
+        type: 2}
+      propertyPath: m_registrations.Array.data[0]
+      value: 
+      objectReference: {fileID: 533070843}
+    - target: {fileID: 114389283146139944, guid: f0883e3ecbe343d478f894c0c826cfe6,
+        type: 2}
+      propertyPath: m_registrations.Array.data[1]
+      value: 
+      objectReference: {fileID: 739631174}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f0883e3ecbe343d478f894c0c826cfe6, type: 2}
   m_IsPrefabParent: 0

@@ -7,13 +7,26 @@ using UnityEngine;
 [CustomEditor(typeof(ControllerAuto))]
 public class ControllerAutoEdit : ControllerEdit
 {
-
+	SerializedProperty registerProp;
+	new void OnEnable()
+	{
+		base.OnEnable();
+		registerProp = serializedObject.FindProperty ("m_registered");
+	}
 	public override void OnInspectorGUI()
 	{
-		base.OnInspectorGUI();
-
-		//add edit controls for automatic edit
-
+		if (registerProp.boolValue)
+			base.OnInspectorGUI();
+		else
+		{
+			GUILayout.BeginHorizontal();
+			if (GUILayout.Button("Register", GUILayout.Width(80)))
+			{
+				ControllerAuto controller = (ControllerAuto)target;
+				controller.Register();
+			}
+			GUILayout.EndHorizontal();
+		}
 	}
 };
 #endif

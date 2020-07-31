@@ -9,7 +9,7 @@ public class ControllerEdit : Editor
 	delegate void MTD_CONTROLLER();
 	MTD_CONTROLLER[] m_methods;
 	string[]		 m_methodsnames;
-	void OnEnable()
+	protected void OnEnable()
 	{
 		Controller controller = (Controller)target;
 		m_methods = new MTD_CONTROLLER[]
