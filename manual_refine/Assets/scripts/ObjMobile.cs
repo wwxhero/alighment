@@ -82,6 +82,15 @@ public class ObjMobile : MonoBehaviour {
 
 	}
 
+	public string name_t {
+		get
+		{
+			string name_suffix = name;
+			for (int i = 0; i < m_iRT; i ++)
+				name_suffix += "'";
+			return name_suffix;
+		}
+	}
 	public void Register(Matrix4x4 [] l2ws, int n_l2ws)
 	{
 		m_rigids.Clear();
@@ -110,20 +119,10 @@ public class ObjMobile : MonoBehaviour {
 		}
 
 		Matrix4x4 l2w = T * transform.localToWorldMatrix;
-		Vector3 x = new Vector3(  l2w[0, 0]
-								, l2w[1, 0]
-								, l2w[2, 0]);
-		Vector3 y = new Vector3(  l2w[0, 1]
-								, l2w[1, 1]
-								, l2w[2, 1]);
-		Vector3 z = new Vector3(  l2w[0, 2]
-								, l2w[1, 2]
-								, l2w[2, 2]);
 		Vector3 t = new Vector3(  l2w[0, 3]
 								, l2w[1, 3]
 								, l2w[2, 3]);
-		transform.up = y;
-		transform.forward = z;
+		transform.rotation = l2w.rotation;
 		transform.position = t;
 	}
 
@@ -139,7 +138,7 @@ public class ObjMobile : MonoBehaviour {
 		Vector3 t = new Vector3(  l2w[0, 3]
 								, l2w[1, 3]
 								, l2w[2, 3]);
-        transform.rotation = l2w.rotation;
+		transform.rotation = l2w.rotation;
 		transform.position = t;
 	}
 
