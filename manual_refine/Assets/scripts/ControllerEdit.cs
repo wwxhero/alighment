@@ -29,8 +29,17 @@ public class ControllerEdit : Editor
 
 	public override void OnInspectorGUI()
 	{
-		base.OnInspectorGUI();
+		OnInspectorGUI_Editor();
+		OnInspectorGUI_ControllerEdit();
+	}
 
+	protected void OnInspectorGUI_Editor()
+	{
+		base.OnInspectorGUI(); //work around for C#
+	}
+
+	protected void OnInspectorGUI_ControllerEdit()
+	{
 		GUILayout.BeginHorizontal();
 		for (int i_btn = 0; i_btn < m_methods.Length; i_btn ++)
 		{
@@ -43,11 +52,6 @@ public class ControllerEdit : Editor
 			}
 		}
 		GUILayout.EndHorizontal();
-	}
-
-	protected void OnInspectorGUI_Editor()
-	{
-		base.OnInspectorGUI(); //work around for C#
 	}
 };
 #endif

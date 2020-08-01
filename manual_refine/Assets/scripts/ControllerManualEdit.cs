@@ -16,7 +16,7 @@ public class ControllerManualEdit : ControllerEdit
 	}
 	public override void OnInspectorGUI()
 	{
-		base.OnInspectorGUI();
+		base.OnInspectorGUI_Editor();
 		GUILayout.BeginHorizontal();
 		string [] btns = {"Start Registering", "Stop Registering"};
 		int i_btn = registering.boolValue ? 1 : 0;
@@ -25,8 +25,15 @@ public class ControllerManualEdit : ControllerEdit
 			registering.boolValue = !registering.boolValue;
 			serializedObject.ApplyModifiedProperties ();
 		}
-		GUILayout.EndHorizontal();
 
+		if (GUILayout.Button("Append", GUILayout.Width(60)))
+		{
+			ControllerManual controller = (ControllerManual)target;
+			controller.Append();
+		}
+
+		GUILayout.EndHorizontal();
+		base.OnInspectorGUI_ControllerEdit();
 	}
 };
 #endif

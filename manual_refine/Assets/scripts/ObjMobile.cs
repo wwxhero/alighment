@@ -221,6 +221,13 @@ public class ObjMobile : MonoBehaviour {
 		}
 	}
 
+	public void Append(ObjMobile mobile)
+	{
+		var addi = mobile.m_rigids;
+		for (int i = 0; i < addi.Count; i ++)
+			m_rigids.Add(addi[i]);
+	}
+
 	void PrintOut(ref Matrix4x4 l2w, int i_trans)
 	{
 		string log = name;

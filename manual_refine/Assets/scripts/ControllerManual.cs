@@ -5,6 +5,7 @@ using UnityEngine;
 public class ControllerManual : Controller {
 
 	[HideInInspector] public bool m_registering = false;
+	public ObjMobile [] m_appends;
 	bool m_registeringm = false;
 
 	void Update()
@@ -16,5 +17,11 @@ public class ControllerManual : Controller {
 		else if(stopRC)
 			m_thisObj.StopRigidTransform();
 		m_registeringm = m_registering;
+	}
+
+	public void Append()
+	{
+		foreach (var mobile in m_appends)
+			m_thisObj.Append(mobile);
 	}
 }
