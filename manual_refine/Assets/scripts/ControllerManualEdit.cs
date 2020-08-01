@@ -5,45 +5,28 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(ControllerManual))]
-public class ControllerManualEdit : Editor
+public class ControllerManualEdit : ControllerEdit
 {
-	SerializedProperty m_recordingManulProp;
-	SerializedProperty nFrameMaxProp;
-	SerializedProperty nFrameMinProp;
-	SerializedProperty nFrameProp;
+	SerializedProperty registering;
 
-	void OnEnable()
+	protected new void OnEnable()
 	{
-		// Setup the SerializedProperties.
-		m_recordingManulProp = serializedObject.FindProperty ("m_recordingmanul");
-        Debug.Assert(null != m_recordingManulProp);
-		//nFrameMinProp = serializedObject.FindProperty("c_nFrameBase");
-		//nFrameMaxProp = serializedObject.FindProperty("c_nFrameMax");
-		//nFrameProp = serializedObject.FindProperty("m_nFrame");
+		base.OnEnable();
+		registering = serializedObject.FindProperty ("m_registering");
 	}
 	public override void OnInspectorGUI()
 	{
 		base.OnInspectorGUI();
 		GUILayout.BeginHorizontal();
-		string [] btns = {"Start recording", "Stop recording"};
-		int i_btn = m_recordingManulProp.boolValue ? 1 : 0;
-		if (GUILayout.Button(btns[i_btn], GUILayout.Width(120)))
+		string [] btns = {"Start Registering", "Stop Registering"};
+		int i_btn = registering.boolValue ? 1 : 0;
+		if (GUILayout.Button(btns[i_btn], GUILayout.Width(160)))
 		{
-			m_recordingManulProp.boolValue = !m_recordingManulProp.boolValue;
+			registering.boolValue = !registering.boolValue;
 			serializedObject.ApplyModifiedProperties ();
 		}
 		GUILayout.EndHorizontal();
-		//GUILayout.BeginHorizontal();
-		//int nFrame = EditorGUILayout.IntSlider("Frame"
-		//						, nFrameProp.intValue
-		//						, nFrameMinProp.intValue
-		//						, nFrameMaxProp.intValue);
-		//if (nFrame != nFrameProp.intValue)
-		//{
-		//	nFrameProp.intValue = nFrame;
-		//	serializedObject.ApplyModifiedProperties();
-		//}
-		//GUILayout.EndHorizontal();
+
 	}
 };
 #endif

@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class ControllerEdit : Editor
 {
-	delegate void MTD_CONTROLLER();
-	MTD_CONTROLLER[] m_methods;
-	string[]		 m_methodsnames;
+	protected delegate void MTD_CONTROLLER();
+	protected MTD_CONTROLLER[] m_methods;
+	protected string[]		 m_methodsnames;
 	protected void OnEnable()
 	{
 		Controller controller = (Controller)target;
@@ -34,7 +34,7 @@ public class ControllerEdit : Editor
 		GUILayout.BeginHorizontal();
 		for (int i_btn = 0; i_btn < m_methods.Length; i_btn ++)
 		{
-			const int width_u = 10;
+			const int width_u = 9;
 			string capi = m_methodsnames[i_btn];
 
 			if (GUILayout.Button(capi, GUILayout.Width(width_u*capi.Length)))

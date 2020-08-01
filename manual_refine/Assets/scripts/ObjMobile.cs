@@ -106,13 +106,19 @@ public class ObjMobile : MonoBehaviour {
 	List<RigidTransformation> m_rigids = new List<RigidTransformation>();
 	RigidConfiguration m_confi;
 	int m_iRT = 0;
+
+	bool m_registering = false;
+	Matrix4x4 m_regDelta0 = Matrix4x4.identity;
 	void Start () {
 		m_confi = new RigidConfiguration(transform.rotation, transform.position);
 	}
 
 	// Update is called once per frame
 	void Update () {
-
+		if (!m_registering)
+		{
+			m_confi.Apply(transform);
+		}
 	}
 
 	public string name_t {
@@ -126,7 +132,8 @@ public class ObjMobile : MonoBehaviour {
 	}
 	public void Register(Matrix4x4 [] l2ws, int n_l2ws)
 	{
-		m_rigids.Clear();
+		for (int i = m_rigids.Count - 1; i > m_iRT - 1; i --)
+			m_rigids.RemoveAt(i);
 		Matrix4x4 [] delta = new Matrix4x4[2]
 		{
 			  m_confi.localToWorldMatrix
@@ -139,7 +146,27 @@ public class ObjMobile : MonoBehaviour {
 			delta[1] = l2ws[i_l2w];
 			m_rigids.Add(new RigidTransformation(delta));
 		}
-		m_iRT = 0;
+	}
+
+	public void StartRigidTransform()
+	{
+		m_registering = true;
+		m_regDelta0 = m_confi.localToWorldMatrix;
+	}
+
+	public void StopRigidTransform()
+	{
+		m_registering = false;
+		m_confi = new RigidConfiguration(transform.rotation, transform.position);
+		for (int i = m_rigids.Count - 1; i > m_iRT - 1; i --)
+			m_rigids.RemoveAt(i);
+		Matrix4x4 [] delta = new Matrix4x4[2]
+		{
+			  m_regDelta0
+			, m_confi.localToWorldMatrix
+		};
+		m_rigids.Add(new RigidTransformation(delta));
+		m_iRT ++;
 	}
 
 	public void Apply()
