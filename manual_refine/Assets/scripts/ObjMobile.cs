@@ -136,20 +136,10 @@ public class ObjMobile : MonoBehaviour {
 		}
 		m_iRT ++;
 		Matrix4x4 l2w = T * transform.localToWorldMatrix;
-		Vector3 x = new Vector3(  l2w[0, 0]
-								, l2w[1, 0]
-								, l2w[2, 0]);
-		Vector3 y = new Vector3(  l2w[0, 1]
-								, l2w[1, 1]
-								, l2w[2, 1]);
-		Vector3 z = new Vector3(  l2w[0, 2]
-								, l2w[1, 2]
-								, l2w[2, 2]);
 		Vector3 t = new Vector3(  l2w[0, 3]
 								, l2w[1, 3]
 								, l2w[2, 3]);
-		transform.up = y;
-		transform.forward = z;
+        transform.rotation = l2w.rotation;
 		transform.position = t;
 	}
 
