@@ -22,7 +22,7 @@ class RigidTransformation
 		return is_rigid;
 	}
 
-	static void Inverse(ref Matrix4x4 m)
+	public static void Inverse(ref Matrix4x4 m)
 	{
 		Matrix4x4 r_inv = m.transpose;
 		Vector3 t = new Vector3(  m[0, 3]
@@ -68,13 +68,46 @@ class RigidTransformation
 
 };
 
+class RigidConfiguration
+{
+	Quaternion m_q;
+	Vector3 m_t;
+    Matrix4x4 m_forward;
+    Matrix4x4 m_inverse;
+	public RigidConfiguration(Quaternion q, Vector3 t)
+	{
+		m_q = q;
+		m_t = t;
+        m_forward = Matrix4x4.TRS(t, q, new Vector3(1f, 1f, 1f));
+        m_inverse = m_forward;
+        RigidTransformation.Inverse(ref m_inverse);
+    }
+
+    public void Apply(Transform transform)
+    {
+    	transform.rotation = m_q;
+    	transform.position = m_t;
+    }
+
+    public Matrix4x4 localToWorldMatrix
+    {
+        get
+        {
+            return m_forward;
+        }
+    }
+
+
+};
+
 public class ObjMobile : MonoBehaviour {
 
 	// Use this for initialization
 	List<RigidTransformation> m_rigids = new List<RigidTransformation>();
+	RigidConfiguration m_confi;
 	int m_iRT = 0;
 	void Start () {
-
+		m_confi = new RigidConfiguration(transform.rotation, transform.position);
 	}
 
 	// Update is called once per frame
@@ -96,7 +129,7 @@ public class ObjMobile : MonoBehaviour {
 		m_rigids.Clear();
 		Matrix4x4 [] delta = new Matrix4x4[2]
 		{
-			  transform.localToWorldMatrix
+			  m_confi.localToWorldMatrix
 			, l2ws[0]
 		};
 		m_rigids.Add(new RigidTransformation(delta));
@@ -118,12 +151,12 @@ public class ObjMobile : MonoBehaviour {
 			T = m_rigids[m_iRT].forward * T;
 		}
 
-		Matrix4x4 l2w = T * transform.localToWorldMatrix;
+		Matrix4x4 l2w = T * m_confi.localToWorldMatrix;
 		Vector3 t = new Vector3(  l2w[0, 3]
 								, l2w[1, 3]
 								, l2w[2, 3]);
-		transform.rotation = l2w.rotation;
-		transform.position = t;
+		m_confi = new RigidConfiguration(l2w.rotation, t);
+		m_confi.Apply(transform);
 	}
 
 	public void Reset()
@@ -134,12 +167,12 @@ public class ObjMobile : MonoBehaviour {
 			T = m_rigids[m_iRT].inverse * T;
 		}
 		m_iRT ++;
-		Matrix4x4 l2w = T * transform.localToWorldMatrix;
+		Matrix4x4 l2w = T * m_confi.localToWorldMatrix;
 		Vector3 t = new Vector3(  l2w[0, 3]
 								, l2w[1, 3]
 								, l2w[2, 3]);
-		transform.rotation = l2w.rotation;
-		transform.position = t;
+		m_confi = new RigidConfiguration(l2w.rotation, t);
+		m_confi.Apply(transform);
 	}
 
 	public void LogOut()
@@ -151,7 +184,7 @@ public class ObjMobile : MonoBehaviour {
 			T_i = m_rigids[i].inverse * T_i;
 		}
 
-		Matrix4x4 l2w_i = T_i * transform.localToWorldMatrix;
+		Matrix4x4 l2w_i = T_i * m_confi.localToWorldMatrix;
 		PrintOut(ref l2w_i, 0);
 		int n_t = m_rigids.Count;
 		for (i = 0; i < n_t; i ++)
