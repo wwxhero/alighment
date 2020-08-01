@@ -6,7 +6,7 @@ class RigidTransformation
 {
 	Matrix4x4 m_forward;
 	Matrix4x4 m_inverse;
-
+	const float Epsilon_f = 100 * float.Epsilon;
 	static bool IsRigid(ref Matrix4x4 m)
 	{
 		bool is_rigid = m.ValidTRS();
@@ -16,7 +16,7 @@ class RigidTransformation
 			for (int i = 0; i < 3 && is_rigid; i ++)
 			{
 				float d = scale[i] - 1.0f;
-				is_rigid = (d < float.Epsilon && d > -float.Epsilon);
+				is_rigid = (d < Epsilon_f && d > -Epsilon_f);
 			}
 		}
 		return is_rigid;
